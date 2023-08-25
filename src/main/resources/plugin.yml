@@ -1,0 +1,6 @@
+name: NitsTrophy
+version: '${project.version}'
+main: me.sirimperivm.spigot.Main
+
+softdepend:
+  - PlaceholderAPI
