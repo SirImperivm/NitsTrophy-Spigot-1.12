@@ -16,12 +16,14 @@ public class Config {
 
     private static Main plugin = Main.getPlugin();
     private File folder = plugin.getDataFolder();
-    private File settingsFile;
-    private FileConfiguration settings;
+    private File settingsFile, helpsFile;
+    private FileConfiguration settings, helps;
 
     public Config() {
         settingsFile = new File(folder, "settings.yml");
         settings = new YamlConfiguration();
+        helpsFile = new File(folder, "helps.yml");
+        helps = new YamlConfiguration();
 
         if (!folder.exists()) {
             folder.mkdir();
@@ -29,6 +31,10 @@ public class Config {
 
         if (!settingsFile.exists()) {
             create(settings, settingsFile);
+        }
+
+        if (!helpsFile.exists()) {
+            create(helps, helpsFile);
         }
     }
 
@@ -65,25 +71,42 @@ public class Config {
 
     public void saveAll() {
         save(settings, settingsFile);
+        save(helps, helpsFile);
     }
 
     public void loadAll(){
         load(settings, settingsFile);
-        plugin.log("&eIl plugin è stato ricaricato con successo!");
+        load(helps, helpsFile);
     }
 
     public File getSettingsFile() {
         return settingsFile;
     }
 
+    public File getHelpsFile() {
+        return helpsFile;
+    }
+
     public FileConfiguration getSettings() {
         return settings;
     }
 
-    public static String getTransl(String key) {
-        return Colors.text(Main.getConf().getSettings().getString(key)
-                .replace("%sp", Main.getSuccessPrefix())
-                .replace("%ip", Main.getInfoPrefix())
-                .replace("%fp", Main.getFailPrefix()));
+    public FileConfiguration getHelps() {
+        return helps;
+    }
+
+    public static String getTransl(String type, String key) {
+        switch (type) {
+            case "helps":
+                return Colors.text(Main.getConf().getHelps().getString(key)
+                        .replace("%sp", Main.getSuccessPrefix())
+                        .replace("%ip", Main.getInfoPrefix())
+                        .replace("%fp", Main.getFailPrefix()));
+            default:
+                return Colors.text(Main.getConf().getSettings().getString(key)
+                        .replace("%sp", Main.getSuccessPrefix())
+                        .replace("%ip", Main.getInfoPrefix())
+                        .replace("%fp", Main.getFailPrefix()));
+        }
     }
 }

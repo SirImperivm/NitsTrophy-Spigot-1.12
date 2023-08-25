@@ -4,6 +4,7 @@ import me.sirimperivm.spigot.assets.managers.Config;
 import me.sirimperivm.spigot.assets.managers.Db;
 import me.sirimperivm.spigot.assets.managers.Modules;
 import me.sirimperivm.spigot.assets.utils.Colors;
+import me.sirimperivm.spigot.modules.listeners.JoinListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import static org.bukkit.Bukkit.getConsoleSender;
@@ -52,11 +53,15 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         setup();
+
+        getServer().getPluginManager().registerEvents(new JoinListener(), this);
+        log("&aPlugin attivato correttamente!");
     }
 
     @Override
     public void onDisable() {
         close();
+        log("&aPlugin disattivato correttamente!");
     }
 
     public void disablePlugin() {

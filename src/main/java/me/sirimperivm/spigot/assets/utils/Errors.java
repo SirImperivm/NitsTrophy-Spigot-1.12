@@ -13,14 +13,14 @@ public class Errors {
     public static boolean noPerm(CommandSender s, String node) {
         if (s.hasPermission(node))
             return false;
-        s.sendMessage(Config.getTransl("messages.errors.no-perm"));
+        s.sendMessage(Config.getTransl("settings","messages.errors.no-perm"));
         return true;
     }
 
     public static boolean noConsole(CommandSender s) {
         if (s instanceof Player)
             return false;
-        s.sendMessage(Config.getTransl("messages.errors.no-console"));
+        s.sendMessage(Config.getTransl("settings","messages.errors.no-console"));
         return true;
     }
 }

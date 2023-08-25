@@ -1,6 +1,7 @@
 package me.sirimperivm.spigot.assets.managers;
 
 import me.sirimperivm.spigot.Main;
+import me.sirimperivm.spigot.assets.managers.databases.Players;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,7 +14,9 @@ public class Db {
     private static Config conf = Main.getConf();
     private static Modules mods;
 
+    private static Players players;
     public static Connection conn;
+
     public static String dbName = conf.getSettings().getString("settings.database.name");
     public static String tablePrefix = conf.getSettings().getString("settings.database.tablePrefix");
 
@@ -59,9 +62,15 @@ public class Db {
     public void setup() {
         connect();
         mods = new Modules();
+        players = new Players();
+        players.createTable();
     }
 
     public static Modules getMods() {
         return mods;
+    }
+
+    public static Players getPlayers() {
+        return players;
     }
 }

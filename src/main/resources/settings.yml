@@ -7,6 +7,8 @@ settings:
     name: "NitsTrophy"
     tablePrefix: "nt_"
     options: ""
+  trophys:
+    defaultValue: 0
 messages:
   prefixes:
     success: "&8[&a!&8] &a"
