@@ -1,0 +1,17 @@
+settings:
+  database:
+    host: "172.18.0.1"
+    port: 3306
+    user: "server"
+    password: "n7EZA@wKOGvi82rq"
+    name: "NitsTrophy"
+    tablePrefix: "nt_"
+    options: ""
+messages:
+  prefixes:
+    success: "&8[&a!&8] &a"
+    info: "&8[&e!&8] &e"
+    fail: "&8[&c!&8] &c"
+  errors:
+    no-perm: "%fpNon hai accesso a questo comando."
+    no-console: "%fpQuesto comando è accessibile solo dagli utenti in gioco."

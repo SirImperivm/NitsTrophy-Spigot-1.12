@@ -1,0 +1,8 @@
+me\sirimperivm\spigot\assets\managers\Modules.class
+me\sirimperivm\spigot\assets\managers\databases\Players.class
+me\sirimperivm\spigot\Main.class
+me\sirimperivm\spigot\assets\utils\Colors.class
+me\sirimperivm\spigot\assets\others\Configs.class
+me\sirimperivm\spigot\assets\utils\Errors.class
+me\sirimperivm\spigot\assets\managers\Config.class
+me\sirimperivm\spigot\assets\managers\Db.class
