@@ -1,9 +1,13 @@
 package me.sirimperivm.spigot;
 
+import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.sirimperivm.spigot.assets.managers.Config;
 import me.sirimperivm.spigot.assets.managers.Db;
 import me.sirimperivm.spigot.assets.managers.Modules;
+import me.sirimperivm.spigot.assets.managers.dependencies.PapiExpansions;
+import me.sirimperivm.spigot.assets.managers.dependencies.Vault;
 import me.sirimperivm.spigot.assets.utils.Colors;
+import me.sirimperivm.spigot.modules.commands.AdminCommand;
 import me.sirimperivm.spigot.modules.listeners.JoinListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -22,8 +26,11 @@ public final class Main extends JavaPlugin {
 
     private static Db data;
     private static Modules mods;
+    private static Vault vault;
+    private static PlaceholderExpansion papi;
 
     private boolean canConnect = false;
+    private int defaultTrophy;
 
     public void setCanConnect(boolean canConnect) {
         this.canConnect = canConnect;
@@ -40,10 +47,17 @@ public final class Main extends JavaPlugin {
         successPrefix = Colors.text(conf.getSettings().getString("messages.prefixes.success"));
         infoPrefix = Colors.text(conf.getSettings().getString("messages.prefixes.info"));
         failPrefix = Colors.text(conf.getSettings().getString("messages.prefixes.fail"));
+        defaultTrophy = conf.getSettings().getInt("settings.trophys.defaultValue");
         canConnect = true;
         data = new Db();
         data.setup();
         mods = data.getMods();
+        vault = new Vault();
+        papi = new PapiExpansions(plugin);
+        if (getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new PapiExpansions(plugin).register();
+            log("&aRegistrazione a placeholderapi confermata.");
+        }
     }
 
     void close() {
@@ -53,6 +67,8 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         setup();
+
+        getServer().getPluginCommand("tadmin").setExecutor(new AdminCommand());
 
         getServer().getPluginManager().registerEvents(new JoinListener(), this);
         log("&aPlugin attivato correttamente!");
@@ -92,11 +108,23 @@ public final class Main extends JavaPlugin {
         return canConnect;
     }
 
+    public int getDefaultTrophy() {
+        return defaultTrophy;
+    }
+
     public static Db getData() {
         return data;
     }
 
     public static Modules getMods() {
         return mods;
+    }
+
+    public static Vault getVault() {
+        return vault;
+    }
+
+    public static PlaceholderExpansion getPapi() {
+        return papi;
     }
 }

@@ -14,6 +14,36 @@ messages:
     success: "&8[&a!&8] &a"
     info: "&8[&e!&8] &e"
     fail: "&8[&c!&8] &c"
+  success:
+    plugin:
+      reloaded: "%spPlugin ricaricato con successo."
+    target:
+      trophy-reset: "%spHai resettato i trofei dell'utente &a${player}&7."
+      trophy-given: "%spHai regalato &a${given}&7 trofei all'utente &a${player}&7."
+      trophy-taken: "%spHai rimosso &a${taken}&7 trofei dall'utente &a${player}&7."
+      trophy-set: "%spHai impostato &a${set}&7 trofei all'utente &a${player}&7."
+  info:
+    trophy:
+      reset: "%ipI tuoi trofei sono stati resettati da un amministratore."
+      received: "%ipHai ricevuto &e${given}&7 trofei, attualmente ne hai &e${actual}&7."
+      taken: "%ipSono stati rimossi &e${taken} &7trofei dal tuo account, attualmente ne hai &e${actual}&7."
+      set: "%ipSono stati impostati &e${set} &7trofei nel tuo account."
   errors:
     no-perm: "%fpNon hai accesso a questo comando."
     no-console: "%fpQuesto comando è accessibile solo dagli utenti in gioco."
+    chars-not-allowed: "%fpNon puoi inserire caratteri in questo comando."
+    target:
+      trophy:
+        not-enough: "%fpL'utente non ha abbastanza trofei."
+placeholders:
+  user:
+    trophyCount: user_trophy_count # Il placeholder relativo è %nt_user_trophy_count%
+permissions:
+  commands:
+    tadmin:
+      main: nitstrophy.commands.tadmin.main
+      give: nitstrophy.commands.tadmin.give
+      reload: nitstrophy.commands.tadmin.reload
+      reset: nitstrophy.commands.tadmin.reset
+      set: nitstrophy.commands.tadmin.set
+      take: nitstrophy.commands.tadmin.take

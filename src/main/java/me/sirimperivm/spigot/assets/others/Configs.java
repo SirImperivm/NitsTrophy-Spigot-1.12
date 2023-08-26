@@ -7,7 +7,8 @@ import java.io.File;
 
 @SuppressWarnings("all")
 public enum Configs {
-    settings(Main.getConf().getSettings(), Main.getConf().getSettingsFile());
+    settings(Main.getConf().getSettings(), Main.getConf().getSettingsFile()),
+    helps(Main.getConf().getHelps(), Main.getConf().getHelpsFile());
 
     private FileConfiguration c;
     private File f;

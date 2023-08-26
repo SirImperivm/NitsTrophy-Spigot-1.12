@@ -21,10 +21,9 @@ public class JoinListener implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
         String playerName = p.getName();
-        int defaultTrophys = conf.getSettings().getInt("settings.trophys.defaultValue");
 
         if (!data.getPlayers().checkUserData(playerName)) {
-            data.getPlayers().insertUserData(playerName, defaultTrophys);
+            data.getPlayers().insertUserData(playerName, plugin.getDefaultTrophy());
         }
     }
 }

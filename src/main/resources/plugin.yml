@@ -5,3 +5,8 @@ main: me.sirimperivm.spigot.Main
 softdepend:
   - PlaceholderAPI
   - Vault
+
+commands:
+  tadmin:
+    aliases:
+      - trophyadmin

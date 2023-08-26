@@ -1,0 +1,19 @@
+helps:
+  admin-commands:
+    trophy-admin:
+      - "&8&m                              "
+      - ""
+      - "&a/trophyadmin(tadmin) give &e<player> <trophies> &7- &fRegala ad un utente dei trofei."
+      - "&a/trophyadmin(tadmin) reload &7- &fRicarica il plugin."
+      - "&a/trophyadmin(tadmin) reset &e<player> &7- &fResetta i trofei ad un utente al valore di base nel config."
+      - "&a/trophyadmin(tadmin) set &e<player> &7- &fImposta il valore dei trofei di un utente."
+      - "&a/trophyadmin(tadmin) take &e<player> <trophies> &7- &fToglie ad un utente dei trofei."
+      - ""
+      - "&8&m                              "
+  user-commands:
+    trophy:
+      - "&8&m                              "
+      - ""
+      - "&a/trophies &e<[player]> &7- &fMostra quanti trofei hai/ha un utente."
+      - ""
+      - "&8&m                              "

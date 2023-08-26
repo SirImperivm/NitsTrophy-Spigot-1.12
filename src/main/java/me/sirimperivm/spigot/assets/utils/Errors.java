@@ -13,7 +13,8 @@ public class Errors {
     public static boolean noPerm(CommandSender s, String node) {
         if (s.hasPermission(node))
             return false;
-        s.sendMessage(Config.getTransl("settings","messages.errors.no-perm"));
+        s.sendMessage(Config.getTransl("settings","messages.errors.no-perm")
+                .replace("${node}", node));
         return true;
     }
 

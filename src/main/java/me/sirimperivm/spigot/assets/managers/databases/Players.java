@@ -69,6 +69,18 @@ public class Players {
         }
     }
 
+    public void updateUserData(String playerName, int trophys) {
+        String query = "UPDATE " + database + " SET trophys=" + trophys + " WHERE playerName='" + playerName + "'";
+
+        try {
+            PreparedStatement state = conn.prepareStatement(query);
+            state.executeUpdate();
+        } catch (SQLException e) {
+            plugin.log("&cImpossibile aggiornare un dato ad un utente.");
+            e.printStackTrace();
+        }
+    }
+
     public int getUserTrophys(String playerName) {
         int value = 0;
         String query = "SELECT * FROM " + database;
