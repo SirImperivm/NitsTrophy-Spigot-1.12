@@ -46,12 +46,12 @@ public class TrophiesCommand implements CommandExecutor {
                             String playerName = p.getName();
 
                             if (data.getPlayers().checkUserData(playerName)) {
-                                int trophyCount = data.getPlayers().getUserTrophys(playerName);
+                                long trophyCount = data.getPlayers().getUserTrophys(playerName);
                                 p.sendMessage(Config.getTransl("settings", "messages.others.your-trophies")
                                         .replace("${trophyCount}", Strings.formatNumber(trophyCount)));
                             } else {
                                 data.getPlayers().insertUserData(playerName, plugin.getDefaultTrophy());
-                                int trophyCount = data.getPlayers().getUserTrophys(playerName);
+                                long trophyCount = data.getPlayers().getUserTrophys(playerName);
                                 p.sendMessage(Config.getTransl("settings", "messages.others.your-trophies")
                                         .replace("${trophyCount}", Strings.formatNumber(trophyCount)));
                             }
@@ -64,7 +64,7 @@ public class TrophiesCommand implements CommandExecutor {
                         String playerName = a[0];
 
                         if (data.getPlayers().checkUserData(playerName)) {
-                            int trophyCount = data.getPlayers().getUserTrophys(playerName);
+                            long trophyCount = data.getPlayers().getUserTrophys(playerName);
                             s.sendMessage(Config.getTransl("settings", "messages.others.other-trophies")
                                     .replace("${trophyCount}", Strings.formatNumber(trophyCount))
                                     .replace("${player}", playerName));
@@ -72,7 +72,7 @@ public class TrophiesCommand implements CommandExecutor {
                             OfflinePlayer target = Bukkit.getOfflinePlayer(playerName);
                             if (target.hasPlayedBefore()) {
                                 data.getPlayers().insertUserData(playerName, plugin.getDefaultTrophy());
-                                int trophyCount = data.getPlayers().getUserTrophys(playerName);
+                                long trophyCount = data.getPlayers().getUserTrophys(playerName);
                                 s.sendMessage(Config.getTransl("settings", "messages.others.other-trophies")
                                         .replace("${trophyCount}", Strings.formatNumber(trophyCount))
                                         .replace("${player}", playerName));

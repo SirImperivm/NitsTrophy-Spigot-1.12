@@ -33,7 +33,7 @@ public final class Main extends JavaPlugin {
     private static PlaceholderExpansion papi;
 
     private boolean canConnect = false;
-    private int defaultTrophy;
+    private long defaultTrophy;
 
     public void setCanConnect(boolean canConnect) {
         this.canConnect = canConnect;
@@ -50,7 +50,7 @@ public final class Main extends JavaPlugin {
         successPrefix = Colors.text(conf.getSettings().getString("messages.prefixes.success"));
         infoPrefix = Colors.text(conf.getSettings().getString("messages.prefixes.info"));
         failPrefix = Colors.text(conf.getSettings().getString("messages.prefixes.fail"));
-        defaultTrophy = conf.getSettings().getInt("settings.trophys.defaultValue");
+        defaultTrophy = conf.getSettings().getLong("settings.trophys.defaultValue");
         canConnect = true;
         data = new Db();
         data.setup();
@@ -116,7 +116,7 @@ public final class Main extends JavaPlugin {
         return canConnect;
     }
 
-    public int getDefaultTrophy() {
+    public long getDefaultTrophy() {
         return defaultTrophy;
     }
 

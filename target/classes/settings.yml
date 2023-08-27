@@ -10,16 +10,20 @@ settings:
   trophys:
     defaultValue: 0
   numberFormatting:
+    enabled: false
     formatTypes:
       - "1000-k"
       - "1000000-m"
       - "1000000000-M"
+      - "1000000000000-b"
+      - "1000000000000000-B"
+      - "1000000000000000000-T"
     formatCount: 5
 messages:
   prefixes:
-    success: "&8[&a!&8] &a"
-    info: "&8[&e!&8] &e"
-    fail: "&8[&c!&8] &c"
+    success: "&8[&a!&8] &7"
+    info: "&8[&e!&8] &7"
+    fail: "&8[&c!&8] &7"
   success:
     plugin:
       reloaded: "%spPlugin ricaricato con successo."

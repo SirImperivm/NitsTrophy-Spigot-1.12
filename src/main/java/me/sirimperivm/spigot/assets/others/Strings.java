@@ -11,8 +11,9 @@ public class Strings {
     private static Main plugin = Main.getPlugin();
     private static Config conf = Main.getConf();
 
-    public static String formatNumber(int number) {
+    public static String formatNumber(long number) {
         String toReturn = String.valueOf(number);
+        if (!conf.getSettings().getBoolean("settings.numberFormatting.enabled")) return toReturn;
         String valueCurrency = "";
         int formatCount = conf.getSettings().getInt("settings.numberFormatting.formatCount");
         List<String> refs = conf.getSettings().getStringList("settings.numberFormatting.formatTypes");
@@ -20,7 +21,7 @@ public class Strings {
 
         for (String ref : refs) {
             String[] splitter = ref.split("-");
-            int refValue = Integer.parseInt(splitter[0]);
+            long refValue = Long.parseLong(splitter[0]);
             if (number >= refValue) {
                 toReturn = String.valueOf(number/refValue);
                 valueCurrency = splitter[1];

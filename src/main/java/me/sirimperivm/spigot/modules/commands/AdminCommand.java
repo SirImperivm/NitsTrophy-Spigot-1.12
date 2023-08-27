@@ -99,8 +99,8 @@ public class AdminCommand implements CommandExecutor {
                                 String playerName = a[1];
 
                                 if (data.getPlayers().checkUserData(playerName)) {
-                                    int actual = data.getPlayers().getUserTrophys(playerName);
-                                    int toGive = trophyInsert + actual;
+                                    long actual = data.getPlayers().getUserTrophys(playerName);
+                                    long toGive = trophyInsert + actual;
                                     Player target = Bukkit.getPlayerExact(playerName);
                                     data.getPlayers().updateUserData(playerName, toGive);
                                     if (target != null) {
@@ -154,9 +154,9 @@ public class AdminCommand implements CommandExecutor {
                                 String playerName = a[1];
 
                                 if (data.getPlayers().checkUserData(playerName)) {
-                                    int actual = data.getPlayers().getUserTrophys(playerName);
+                                    long actual = data.getPlayers().getUserTrophys(playerName);
                                     if (actual >= trophyTaken) {
-                                        int toTake = actual-trophyTaken;
+                                        long toTake = actual-trophyTaken;
                                         Player target = Bukkit.getPlayerExact(playerName);
                                         data.getPlayers().updateUserData(playerName, toTake);
                                         if (target != null) {
@@ -176,9 +176,9 @@ public class AdminCommand implements CommandExecutor {
                                     OfflinePlayer target = Bukkit.getOfflinePlayer(playerName);
                                     if (target.hasPlayedBefore()) {
                                         data.getPlayers().insertUserData(playerName, plugin.getDefaultTrophy());
-                                        int actual = data.getPlayers().getUserTrophys(playerName);
+                                        long actual = data.getPlayers().getUserTrophys(playerName);
                                         if (actual >= trophyTaken) {
-                                            int toTake = actual - trophyTaken;
+                                            long toTake = actual - trophyTaken;
                                             data.getPlayers().updateUserData(playerName, toTake);
                                             if (target.isOnline()) {
                                                 Player t = (Player) target;

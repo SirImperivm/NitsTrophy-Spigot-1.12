@@ -52,13 +52,13 @@ public class Players {
         }
     }
 
-    public void insertUserData(String playerName, int trophys) {
+    public void insertUserData(String playerName, long trophys) {
         String query = "INSERT INTO " + database + "(playerName, trophys) VALUES (?, ?)";
 
         try {
             PreparedStatement state = conn.prepareStatement(query);
             state.setString(1, playerName);
-            state.setInt(2, trophys);
+            state.setLong(2, trophys);
             state.executeUpdate();
         } catch (SQLException e) {
             plugin.log("&cImpossibile aggiungere un dato al database players: " +
@@ -69,7 +69,7 @@ public class Players {
         }
     }
 
-    public void updateUserData(String playerName, int trophys) {
+    public void updateUserData(String playerName, long trophys) {
         String query = "UPDATE " + database + " SET trophys=" + trophys + " WHERE playerName='" + playerName + "'";
 
         try {
@@ -81,8 +81,8 @@ public class Players {
         }
     }
 
-    public int getUserTrophys(String playerName) {
-        int value = 0;
+    public long getUserTrophys(String playerName) {
+        long value = 0;
         String query = "SELECT * FROM " + database;
 
         try {
@@ -90,7 +90,7 @@ public class Players {
             ResultSet rs = state.executeQuery();
             while (rs.next()) {
                 if (rs.getString("playerName").equalsIgnoreCase(playerName)) {
-                    value = rs.getInt("trophys");
+                    value = rs.getLong("trophys");
                     break;
                 }
             }
