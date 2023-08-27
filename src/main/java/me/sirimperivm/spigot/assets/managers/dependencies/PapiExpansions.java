@@ -5,6 +5,7 @@ import me.sirimperivm.spigot.Main;
 import me.sirimperivm.spigot.assets.managers.Config;
 import me.sirimperivm.spigot.assets.managers.Db;
 import me.sirimperivm.spigot.assets.managers.Modules;
+import me.sirimperivm.spigot.assets.others.Strings;
 import org.bukkit.OfflinePlayer;
 
 @SuppressWarnings("all")
@@ -40,6 +41,10 @@ public class PapiExpansions extends PlaceholderExpansion {
 
         if (param.equalsIgnoreCase(conf.getSettings().getString("placeholders.user.trophyCount"))) {
             toReturn = String.valueOf(data.getPlayers().getUserTrophys(player.getName()));
+        }
+
+        if (param.equalsIgnoreCase(conf.getSettings().getString("placeholders.user.trophyCountFormatted"))) {
+            toReturn = Strings.formatNumber(data.getPlayers().getUserTrophys(player.getName()));
         }
 
         return toReturn;

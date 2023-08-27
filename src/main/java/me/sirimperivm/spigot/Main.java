@@ -8,7 +8,10 @@ import me.sirimperivm.spigot.assets.managers.dependencies.PapiExpansions;
 import me.sirimperivm.spigot.assets.managers.dependencies.Vault;
 import me.sirimperivm.spigot.assets.utils.Colors;
 import me.sirimperivm.spigot.modules.commands.AdminCommand;
+import me.sirimperivm.spigot.modules.commands.TrophiesCommand;
 import me.sirimperivm.spigot.modules.listeners.JoinListener;
+import me.sirimperivm.spigot.modules.tabCompleters.AdminCommandTabCompleter;
+import me.sirimperivm.spigot.modules.tabCompleters.TrophiesTabCompleter;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import static org.bukkit.Bukkit.getConsoleSender;
@@ -69,8 +72,13 @@ public final class Main extends JavaPlugin {
         setup();
 
         getServer().getPluginCommand("tadmin").setExecutor(new AdminCommand());
+        getServer().getPluginCommand("trophies").setExecutor(new TrophiesCommand());
+
+        getServer().getPluginCommand("tadmin").setTabCompleter(new AdminCommandTabCompleter());
+        getServer().getPluginCommand("trophies").setTabCompleter(new TrophiesTabCompleter());
 
         getServer().getPluginManager().registerEvents(new JoinListener(), this);
+
         log("&aPlugin attivato correttamente!");
     }
 

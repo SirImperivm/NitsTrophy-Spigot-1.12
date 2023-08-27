@@ -4,9 +4,11 @@ import me.sirimperivm.spigot.Main;
 import me.sirimperivm.spigot.assets.managers.Config;
 import me.sirimperivm.spigot.assets.managers.Db;
 import me.sirimperivm.spigot.assets.managers.Modules;
+import me.sirimperivm.spigot.assets.others.Strings;
 import me.sirimperivm.spigot.assets.utils.Colors;
 import me.sirimperivm.spigot.assets.utils.Errors;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -61,13 +63,18 @@ public class AdminCommand implements CommandExecutor {
                                 s.sendMessage(Config.getTransl("settings", "messages.success.target.trophy-reset")
                                         .replace("${player}", playerName));
                             } else {
-                                Player target = Bukkit.getPlayerExact(playerName);
-                                data.getPlayers().updateUserData(playerName, plugin.getDefaultTrophy());
-                                if (target != null) {
-                                    target.sendMessage(Config.getTransl("settings", "messages.info.trophy.reset"));
+                                OfflinePlayer target = Bukkit.getOfflinePlayer(playerName);
+                                if (target.hasPlayedBefore()) {
+                                    data.getPlayers().insertUserData(playerName, plugin.getDefaultTrophy());
+                                    if (target.isOnline()) {
+                                        Player t = (Player) target;
+                                        t.sendMessage(Config.getTransl("settings", "messages.info.trophy.reset"));
+                                    }
+                                    s.sendMessage(Config.getTransl("settings", "messages.success.target.trophy-reset")
+                                            .replace("${player}", playerName));
+                                } else {
+                                    s.sendMessage(Config.getTransl("settings", "messages.errors.user-not-found"));
                                 }
-                                s.sendMessage(Config.getTransl("settings", "messages.success.target.trophy-reset")
-                                        .replace("${player}", playerName));
                             }
                         }
                     } else {
@@ -99,26 +106,31 @@ public class AdminCommand implements CommandExecutor {
                                     if (target != null) {
                                         target.sendMessage(Config.getTransl("settings", "messages.info.trophy.received")
                                                 .replace("${given}", a[2])
-                                                .replace("${actual}", String.valueOf(toGive)));
+                                                .replace("${actual}", Strings.formatNumber(toGive)));
                                     }
                                     s.sendMessage(Config.getTransl("settings", "messages.success.target.trophy-given")
                                             .replace("${player}", playerName)
-                                            .replace("${given}", String.valueOf(trophyInsert))
+                                            .replace("${given}", Strings.formatNumber(trophyInsert))
                                     );
                                 } else {
-                                    data.getPlayers().insertUserData(playerName, plugin.getDefaultTrophy());
-                                    int toGive = trophyInsert;
-                                    Player target = Bukkit.getPlayerExact(playerName);
-                                    data.getPlayers().updateUserData(playerName, toGive);
-                                    if (target != null) {
-                                        target.sendMessage(Config.getTransl("settings", "messages.info.trophy.received")
-                                                .replace("${given}", a[2])
-                                                .replace("${actual}", String.valueOf(toGive)));
+                                    OfflinePlayer target = Bukkit.getOfflinePlayer(playerName);
+                                    if (target.hasPlayedBefore()) {
+                                        data.getPlayers().insertUserData(playerName, plugin.getDefaultTrophy());
+                                        int toGive = trophyInsert;
+                                        data.getPlayers().updateUserData(playerName, toGive);
+                                        if (target.isOnline()) {
+                                            Player t = (Player) target;
+                                            t.sendMessage(Config.getTransl("settings", "messages.info.trophy.received")
+                                                    .replace("${given}", a[2])
+                                                    .replace("${actual}", Strings.formatNumber(toGive)));
+                                        }
+                                        s.sendMessage(Config.getTransl("settings", "messages.success.target.trophy-given")
+                                                .replace("${player}", playerName)
+                                                .replace("${given}", Strings.formatNumber(trophyInsert))
+                                        );
+                                    } else {
+                                        s.sendMessage(Config.getTransl("settings", "messages.errors.user-not-found"));
                                     }
-                                    s.sendMessage(Config.getTransl("settings", "messages.success.target.trophy-given")
-                                            .replace("${player}", playerName)
-                                            .replace("${given}", String.valueOf(trophyInsert))
-                                    );
                                 }
                             } else {
                                 s.sendMessage(Config.getTransl("settings", "messages.errors.chars-not-allowed"));
@@ -149,36 +161,41 @@ public class AdminCommand implements CommandExecutor {
                                         data.getPlayers().updateUserData(playerName, toTake);
                                         if (target != null) {
                                             target.sendMessage(Config.getTransl("settings", "messages.info.trophy.taken")
-                                                    .replace("${taken}", String.valueOf(trophyTaken))
-                                                    .replace("${actual}", String.valueOf(toTake))
+                                                    .replace("${taken}", Strings.formatNumber(trophyTaken))
+                                                    .replace("${actual}", Strings.formatNumber(toTake))
                                             );
                                         }
                                         s.sendMessage(Config.getTransl("settings", "messages.success.target.trophy-taken")
-                                                .replace("${taken}", String.valueOf(trophyTaken))
+                                                .replace("${taken}", Strings.formatNumber(trophyTaken))
                                                 .replace("${player}", playerName)
                                         );
                                     } else {
                                         s.sendMessage(Config.getTransl("settings", "messages.errors.target.trophy.not-enough"));
                                     }
                                 } else {
-                                    data.getPlayers().insertUserData(playerName, plugin.getDefaultTrophy());
-                                    int actual = data.getPlayers().getUserTrophys(playerName);
-                                    if (actual >= trophyTaken) {
-                                        int toTake = actual-trophyTaken;
-                                        Player target = Bukkit.getPlayerExact(playerName);
-                                        data.getPlayers().updateUserData(playerName, toTake);
-                                        if (target != null) {
-                                            target.sendMessage(Config.getTransl("settings", "messages.info.trophy.taken")
-                                                    .replace("${taken}", String.valueOf(trophyTaken))
-                                                    .replace("${actual}", String.valueOf(toTake))
+                                    OfflinePlayer target = Bukkit.getOfflinePlayer(playerName);
+                                    if (target.hasPlayedBefore()) {
+                                        data.getPlayers().insertUserData(playerName, plugin.getDefaultTrophy());
+                                        int actual = data.getPlayers().getUserTrophys(playerName);
+                                        if (actual >= trophyTaken) {
+                                            int toTake = actual - trophyTaken;
+                                            data.getPlayers().updateUserData(playerName, toTake);
+                                            if (target.isOnline()) {
+                                                Player t = (Player) target;
+                                                t.sendMessage(Config.getTransl("settings", "messages.info.trophy.taken")
+                                                        .replace("${taken}", Strings.formatNumber(trophyTaken))
+                                                        .replace("${actual}", Strings.formatNumber(toTake))
+                                                );
+                                            }
+                                            s.sendMessage(Config.getTransl("settings", "messages.success.target.trophy-taken")
+                                                    .replace("${taken}", Strings.formatNumber(trophyTaken))
+                                                    .replace("${player}", playerName)
                                             );
+                                        } else {
+                                            s.sendMessage(Config.getTransl("settings", "messages.errors.target.trophy.not-enough"));
                                         }
-                                        s.sendMessage(Config.getTransl("settings", "messages.success.target.trophy-taken")
-                                                .replace("${taken}", String.valueOf(trophyTaken))
-                                                .replace("${player}", playerName)
-                                        );
                                     } else {
-                                        s.sendMessage(Config.getTransl("settings", "messages.errors.target.trophy.not-enough"));
+                                        s.sendMessage(Config.getTransl("settings", "messages.errors.user-not-found"));
                                     }
                                 }
                             } else {
@@ -202,18 +219,32 @@ public class AdminCommand implements CommandExecutor {
                                 int trophySet = Integer.parseInt(a[2]);
                                 String playerName = a[1];
 
-                                if (data.getPlayers().checkUserData(playerName))
+                                if (data.getPlayers().checkUserData(playerName)) {
                                     data.getPlayers().updateUserData(playerName, trophySet);
-                                data.getPlayers().insertUserData(playerName, trophySet);
+                                    Player target = Bukkit.getPlayerExact(playerName);
+                                    if (target != null)
+                                        target.sendMessage(Config.getTransl("settings", "messages.info.trophy.set")
+                                                .replace("${set}", Strings.formatNumber(trophySet)));
 
-                                Player target = Bukkit.getPlayerExact(playerName);
-                                if (target != null)
-                                    target.sendMessage(Config.getTransl("settings", "messages.info.trophy.set")
-                                            .replace("${set}", String.valueOf(trophySet)));
-
-                                s.sendMessage(Config.getTransl("settings", "messages.success.target.trophy-set")
-                                        .replace("${set}", String.valueOf(trophySet))
-                                        .replace("${player}", playerName));
+                                    s.sendMessage(Config.getTransl("settings", "messages.success.target.trophy-set")
+                                            .replace("${set}", Strings.formatNumber(trophySet))
+                                            .replace("${player}", playerName));
+                                } else {
+                                    OfflinePlayer target = Bukkit.getOfflinePlayer(playerName);
+                                    if (target.hasPlayedBefore()) {
+                                        data.getPlayers().insertUserData(playerName, trophySet);
+                                        if (target.isOnline()) {
+                                            Player t = (Player) target;
+                                            t.sendMessage(Config.getTransl("settings", "messages.info.trophy.set")
+                                                    .replace("${set}", Strings.formatNumber(trophySet)));
+                                        }
+                                        s.sendMessage(Config.getTransl("settings", "messages.success.target.trophy-set")
+                                                .replace("${set}", Strings.formatNumber(trophySet))
+                                                .replace("${player}", playerName));
+                                    } else {
+                                        s.sendMessage(Config.getTransl("settings", "messages.errors.user-not-found"));
+                                    }
+                                }
                             } else {
                                 s.sendMessage(Config.getTransl("settings", "messages.errors.chars-not-allowed"));
                             }

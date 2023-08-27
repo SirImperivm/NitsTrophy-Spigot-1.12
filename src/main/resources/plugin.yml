@@ -10,3 +10,6 @@ commands:
   tadmin:
     aliases:
       - trophyadmin
+  trophies:
+    aliases:
+      - trofei

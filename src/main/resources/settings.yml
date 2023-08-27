@@ -9,6 +9,16 @@ settings:
     options: ""
   trophys:
     defaultValue: 0
+  numberFormatting:
+    formatTypes:
+      - "1000-k"
+      - "1000000-m"
+      - "1000000000-M"
+      - "1000000000000-b"
+      - "1000000000000000-B"
+      - "1000000000000000000-t"
+      - "1000000000000000000000-T"
+    formatCount: 5
 messages:
   prefixes:
     success: "&8[&a!&8] &a"
@@ -35,9 +45,14 @@ messages:
     target:
       trophy:
         not-enough: "%fpL'utente non ha abbastanza trofei."
+    user-not-found: "%fpUtente non trovato."
+  others:
+    your-trophies: "&9[&b!&9] &7Hai ottenuto &3${trophyCount}&7 trofei. &9[&b!&9]"
+    other-trophies: "&9[&b!&9] &7L'utente &3${player} ha ottenuto &3${trophyCount}&7 trofei. &9[&b!&9]"
 placeholders:
   user:
     trophyCount: user_trophy_count # Il placeholder relativo è %nt_user_trophy_count%
+    trophyCountFormatted: user_trophy_count-formatted # Il placeholder relativo è %nt_user_trophy_count-formatted%
 permissions:
   commands:
     tadmin:
@@ -47,3 +62,8 @@ permissions:
       reset: nitstrophy.commands.tadmin.reset
       set: nitstrophy.commands.tadmin.set
       take: nitstrophy.commands.tadmin.take
+    trophies:
+      main: nitstrophy.commands.trophies.main
+      show:
+        yourself: nitstrophy.commands.trophies.info
+        others: nitstrophy.commands.trophies.info.others
