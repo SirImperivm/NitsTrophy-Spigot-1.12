@@ -44,7 +44,7 @@ messages:
     user-not-found: "%fpUtente non trovato."
   others:
     your-trophies: "&9[&b!&9] &7Hai ottenuto &3${trophyCount}&7 trofei. &9[&b!&9]"
-    other-trophies: "&9[&b!&9] &7L'utente &3${player} ha ottenuto &3${trophyCount}&7 trofei. &9[&b!&9]"
+    other-trophies: "&9[&b!&9] &3${player} &7ha ottenuto &3${trophyCount}&7 trofei. &9[&b!&9]"
 placeholders:
   user:
     trophyCount: user_trophy_count # Il placeholder relativo è %nt_user_trophy_count%
